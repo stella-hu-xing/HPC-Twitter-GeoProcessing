@@ -12,40 +12,40 @@ public class Grid {
 		this.id = id;
 	}
 
-	public float xmin;
-	public float xmax;
-	public float ymin;
-	public float ymax;
+	public double xmin;
+	public double xmax;
+	public double ymin;
+	public double ymax;
 
-	public float getXmin() {
+	public double getXmin() {
 		return xmin;
 	}
 
-	public void setXmin(float xmin) {
+	public void setXmin(double xmin) {
 		this.xmin = xmin;
 	}
 
-	public float getXmax() {
+	public double getXmax() {
 		return xmax;
 	}
 
-	public void setXmax(float xmax) {
+	public void setXmax(double xmax) {
 		this.xmax = xmax;
 	}
 
-	public float getYmin() {
+	public double getYmin() {
 		return ymin;
 	}
 
-	public void setYmin(float ymin) {
+	public void setYmin(double ymin) {
 		this.ymin = ymin;
 	}
 
-	public float getYmax() {
+	public double getYmax() {
 		return ymax;
 	}
 
-	public void setYmax(float ymax) {
+	public void setYmax(double ymax) {
 		this.ymax = ymax;
 	}
 
