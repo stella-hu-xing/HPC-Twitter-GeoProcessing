@@ -8,7 +8,7 @@ public class TestDriver {
 
 		ReadFileAndRank rr = new ReadFileAndRank();
 		HashMap<Grid, Integer> grids = rr.readGrid("src/data/melbGrid.json");
-		rr.ReadTwits(grids, "src/data/tinyTwitter.json");
+		rr.ReadTwits(grids, "src/data/smallTwitter.json");
 		rr.getGridRank(grids);
 		rr.getRowRank(grids);
 		rr.getColumnRank(grids);
