@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/xinghu/Desktop/cluster_assign1/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/xinghu/Documents/workspace/HPC-Twitter-GeoProcessing/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="/Users/xinghu/Documents/packages/mpj-v0_44/lib/mpj.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

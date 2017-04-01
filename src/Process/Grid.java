@@ -17,6 +17,19 @@ public class Grid {
 	public double ymin;
 	public double ymax;
 
+	public Grid() {
+
+	};
+
+	public Grid(String id, double xmin, double xmax, double ymin, double ymax) {
+
+		this.id = id;
+		this.xmax = xmax;
+		this.xmin = xmin;
+		this.ymax = ymax;
+		this.ymin = ymin;
+	}
+
 	public double getXmin() {
 		return xmin;
 	}
