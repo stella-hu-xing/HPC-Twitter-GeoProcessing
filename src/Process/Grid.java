@@ -1,25 +1,28 @@
 package Process;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.HashMap;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
 public class Grid {
 
-	public String id;
+	private String id;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public double xmin;
-	public double xmax;
-	public double ymin;
-	public double ymax;
+	private double xmin;
+	private double xmax;
+	private double ymin;
+	private double ymax;
 
 	public Grid() {
 
-	};
+	}
 
 	public Grid(String id, double xmin, double xmax, double ymin, double ymax) {
 
@@ -28,6 +31,73 @@ public class Grid {
 		this.xmin = xmin;
 		this.ymax = ymax;
 		this.ymin = ymin;
+	}
+
+	/**
+	 * 
+	 * @param filename
+	 * @return
+	 */
+	public HashMap<Grid, Integer> readGrid(String filename) {
+
+		HashMap<Grid, Integer> boxRank = new HashMap<Grid, Integer>();
+
+		JsonParser parser = new JsonParser();
+
+		try {
+			JsonElement ele = parser.parse(new FileReader(filename));
+
+			if (ele.isJsonObject()) {
+				JsonObject jsonObject = ele.getAsJsonObject();
+				JsonArray features = (JsonArray) jsonObject.get("features");
+
+				for (JsonElement eachline : features) {
+
+					JsonObject line = eachline.getAsJsonObject();
+					JsonObject g = (JsonObject) line.get("properties");
+
+					Grid grid = new Grid(g.get("id").getAsString(), g.get("xmin").getAsDouble(),
+							g.get("xmax").getAsDouble(), g.get("ymin").getAsDouble(), g.get("ymax").getAsDouble());
+
+					boxRank.put(grid, 0);
+				}
+			}
+
+		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return boxRank;
+	}
+
+	public HashMap<String, Integer> readRow(HashMap<Grid, Integer> boxes) {
+		HashMap<String, Integer> rows = new HashMap<String, Integer>();
+		for (Grid g : boxes.keySet()) {
+			String rowId = g.getId().charAt(0) + "-Row";
+			if (!rows.containsKey(rowId)) {
+				rows.put(rowId, 0);
+			}
+		}
+		return rows;
+	}
+
+	public HashMap<String, Integer> readColumn(HashMap<Grid, Integer> boxes) {
+		HashMap<String, Integer> columns = new HashMap<String, Integer>();
+		for (Grid g : boxes.keySet()) {
+			String columnId = "Column " + g.getId().charAt(1);
+			if (!columns.containsKey(columnId)) {
+				columns.put(columnId, 0);
+			}
+		}
+		return columns;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public double getXmin() {

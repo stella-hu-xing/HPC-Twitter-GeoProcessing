@@ -1,8 +1,6 @@
 package Process;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,52 +15,15 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
-public class ReadInStream {
+public class ReadTweetAndCount {
 
-	public static HashMap<Grid, Integer> boxRank = new HashMap<Grid, Integer>();
-	public static HashMap<String, Integer> rowRank = new HashMap<String, Integer>();
-	public static HashMap<String, Integer> columnRank = new HashMap<String, Integer>();
-
-	/**
-	 * 
-	 * @param filename
-	 * @return
-	 */
-	public HashMap<Grid, Integer> readGrid(String filename) {
-
-		JsonParser parser = new JsonParser();
-
-		try {
-			JsonElement ele = parser.parse(new FileReader(filename));
-
-			if (ele.isJsonObject()) {
-				JsonObject jsonObject = ele.getAsJsonObject();
-				JsonArray features = (JsonArray) jsonObject.get("features");
-
-				for (JsonElement eachline : features) {
-
-					JsonObject line = eachline.getAsJsonObject();
-					JsonObject g = (JsonObject) line.get("properties");
-
-					Grid grid = new Grid(g.get("id").getAsString(), g.get("xmin").getAsDouble(),
-							g.get("xmax").getAsDouble(), g.get("ymin").getAsDouble(), g.get("ymax").getAsDouble());
-
-					boxRank.put(grid, 0);
-				}
-			}
-
-		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return boxRank;
-	}
+	public HashMap<Grid, Integer> boxRank = new HashMap<Grid, Integer>();
+	public HashMap<String, Integer> rowRank = new HashMap<String, Integer>();
+	public HashMap<String, Integer> columnRank = new HashMap<String, Integer>();
 
 	public void ReadTwits(String filepath, HashMap<Grid, Integer> grids) throws IOException {
 
-		InputStream is;
-
-		is = new FileInputStream(filepath);
+		InputStream is = new FileInputStream(filepath);
 
 		InputStreamReader isr = new InputStreamReader(is);
 		JsonReader reader = new JsonReader(isr);
@@ -110,7 +71,7 @@ public class ReadInStream {
 		reader.close();
 
 		for (Grid box : boxRank.keySet()) {
-			System.out.println("box:  " + box.id + "  " + boxRank.get(box));
+			System.out.println("box:  " + box.getId() + "  " + boxRank.get(box));
 		}
 
 		for (String a : rowRank.keySet()) {
@@ -158,41 +119,5 @@ public class ReadInStream {
 		}
 		reader.endArray();
 	}
-
-	// public void ReadLine(JsonReader reader) throws IOException {
-	//
-	// reader.beginObject();
-	// while (reader.hasNext()) {
-	// String name = reader.nextName();
-	// if (name.equals("json")) {
-	// reader.beginObject();
-	// while (reader.hasNext()) {
-	// String name_coordinates = reader.nextName();
-	// if (name_coordinates.equals("coordinates")) {
-	// reader.beginObject();
-	// while (reader.hasNext()) {
-	//
-	// String coordinates = reader.nextName();
-	// if (coordinates.equals("coordinates")) {
-	// // System.out.println(reader.nextString());
-	// readCoordinates(reader);
-	// } else {
-	// reader.skipValue();
-	// }
-	// }
-	// reader.endObject();
-	// } else {
-	// reader.skipValue();
-	// }
-	// }
-	// reader.endObject();
-	//
-	// } else {
-	// reader.skipValue();
-	// }
-	//
-	// }
-	// reader.endObject();
-	// }
 
 }
