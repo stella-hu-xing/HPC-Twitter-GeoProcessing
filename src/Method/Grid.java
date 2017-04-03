@@ -1,7 +1,8 @@
-package Process;
+package Method;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;
@@ -38,9 +39,9 @@ public class Grid {
 	 * @param filename
 	 * @return
 	 */
-	public HashMap<Grid, Integer> readGrid(String filename) {
+	public ArrayList<Grid> readGrid(String filename) {
 
-		HashMap<Grid, Integer> boxRank = new HashMap<Grid, Integer>();
+		ArrayList<Grid> boxRank = new ArrayList<Grid>();
 
 		JsonParser parser = new JsonParser();
 
@@ -59,7 +60,7 @@ public class Grid {
 					Grid grid = new Grid(g.get("id").getAsString(), g.get("xmin").getAsDouble(),
 							g.get("xmax").getAsDouble(), g.get("ymin").getAsDouble(), g.get("ymax").getAsDouble());
 
-					boxRank.put(grid, 0);
+					boxRank.add(grid);
 				}
 			}
 
