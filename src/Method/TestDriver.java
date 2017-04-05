@@ -25,14 +25,16 @@ public class TestDriver {
 		String fileMelb = "src/data/melbGrid.json";
 		String fileTwitter = "src/data/smallTwitter.json";
 
-		long stamp_start = System.currentTimeMillis();
-		System.out.println("start at:  " + stamp_start);
+		
 
 		// // using default args
 		MPI.Init(args);
 
 		int myrank = MPI.COMM_WORLD.Rank();
 		int size = MPI.COMM_WORLD.Size();
+		
+		long stamp_start = System.currentTimeMillis();
+		System.out.println(myrank+ " start at:  " + stamp_start);
 
 		int masterRank = 0;
 		int tag = 100;
@@ -133,7 +135,7 @@ public class TestDriver {
 		MPI.Finalize();
 
 		long stamp_end = System.currentTimeMillis();
-		System.out.println("end at:  " + stamp_end + " duration is: " + (stamp_end - stamp_start));
+		System.out.println(myrank+" end at:  " + stamp_end + " duration is: " + (stamp_end - stamp_start));
 	}
 
 	public void CalculateAndRank(int[] allResults, ArrayList<Grid> grids) {
